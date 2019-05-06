@@ -13,7 +13,19 @@ items:
           metadata:
             annotations:
               alm-examples: >-
-                [{"apiVersion":"interconnectedcloud.github.io/v1alpha1","kind":"Qdrouterd","metadata":{"name":"amq-interconnect"},"spec":{"count":2,"deploymentMode": "lbfrontend","image":"quay.io/interconnectedcloud/qdrouterd:1.6.0"}}]
+                [{"apiVersion":"interconnectedcloud.github.io/v1alpha1",
+                  "kind":"Qdrouterd",
+                  "metadata":{
+                    "name":"amq-interconnect"
+                   },
+                  "spec":{
+                    "deploymentPlan": {
+                      "role":"interior",
+                      "size":2,
+                      "placement":"Any",
+                      "image":"quay.io/interconnectedcloud/qdrouterd:1.6.0"
+                    }
+                  }}]
               capabilities: Basic Install
               categories: Messaging
             name: qdrouterd-operator.v0.1.0
@@ -125,7 +137,7 @@ items:
                                 fieldPath: metadata.name
                           - name: OPERATOR_NAME
                             value: qdrouterd-operator
-                          image: quay.io/interconnectedcloud/qdrouterd-operator
+                          image: quay.io/myeung/qdrouterd-operator
                           imagePullPolicy: Always
                           name: qdrouterd-operator
                           ports:
@@ -371,9 +383,7 @@ items:
                             - host
                             - port
                           type: object
-                        type: array
                       interRouterConnectors:
-                        type: array
                         description: Configuration of each individual inter router connector
                         items:
                           properties:
@@ -397,7 +407,6 @@ items:
                           type: object
                         type: array
                       edgeConnectors:
-                        type: array
                         description: Configuration of each individual edge uplink connector
                         items:
                           properties:
